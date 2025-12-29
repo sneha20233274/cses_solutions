@@ -1,4 +1,4 @@
-// Range Sum Query using Square Root Decomposition
+// Range xor Query using Square Root Decomposition
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
@@ -14,7 +14,7 @@ int main(){
     if (len * len < n) len++;
     vector<long long>b(len,0);
     for(int i=0;i<n;i++){
-      b[i/len]+=a[i];
+      b[i/len]^=a[i];
     }
     vector<long long>ans(q);
     for(int i=0;i<q;i++){
@@ -22,21 +22,20 @@ int main(){
       int r=queries[i][1];
       l--;
       r--;
-      long long sum=0;
+      long long x=0;
       int j=l;
       while(j<=r){
         if((j%len==0) && (j+len-1)<=r){
-          sum+=b[j/len];
+          x^=b[j/len];
           j+=len;
         }
         else {
-           sum+=a[j];
+           x^=a[j];
             j++;
         }
       } 
-      ans[i]=sum;
+      ans[i]=x;
     }
     for(auto it:ans)  cout<<it<<endl;
     return 0;
   }
-  
